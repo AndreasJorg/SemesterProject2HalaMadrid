@@ -23,6 +23,7 @@ public class StartMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//Opening StartMenu
 					StartMenu frame = new StartMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -47,13 +48,18 @@ public class StartMenu extends JFrame {
 		lblNewLabel.setBounds(5, 5, 163, 13);
 		contentPane.add(lblNewLabel);
 		
+		//TennisKnappen
 		JButton TennisBookBaneBTN = new JButton("Tennis");
 		TennisBookBaneBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Opening BaneBooking when Tennisbutton is pressed
 				BaneBooking booking = new BaneBooking();
+				//Opening BaneBooking window as sameplace as previous window
 				booking.setLocationRelativeTo(null);
+				//Displaying the window
 				booking.setVisible(true); 
 			
+				//Closeing old window when new is Opened
 				StartMenu.this.dispose(); 
 			}
 				

@@ -12,6 +12,8 @@ public class BookingTableModel extends AbstractTableModel {
 	
 	public BookingTableModel() {
 		data = new Object [] [] {
+			//Creating the visuels to our JTable
+			//Not valid data
 			{"08:00 : 09:00", new BookingCell("Dkk 70", Cellstatus.LEDIG), new BookingCell("Dk 70", Cellstatus.LEDIG)},
 			{"09:00 : 10:00", new BookingCell("Optaget", Cellstatus.OPTAGET), new BookingCell("Dk 70", Cellstatus.LEDIG)},
 			{"10:00 : 11:00", new BookingCell("Dkk 70", Cellstatus.TURNERING), new BookingCell("Dk 70", Cellstatus.LEDIG)},

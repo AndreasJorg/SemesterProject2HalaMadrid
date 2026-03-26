@@ -19,6 +19,7 @@ public class BookingCellRenderer extends DefaultTableCellRenderer {
         //Centerere teksten i cellen.
         setHorizontalAlignment(CENTER);
 
+        
         if (value instanceof BookingCell) {
             BookingCell cell = (BookingCell) value;
             setText(cell.getText());
