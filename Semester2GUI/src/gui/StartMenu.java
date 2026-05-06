@@ -23,7 +23,6 @@ public class StartMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//Opening StartMenu
 					StartMenu frame = new StartMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -48,23 +47,18 @@ public class StartMenu extends JFrame {
 		lblNewLabel.setBounds(5, 5, 163, 13);
 		contentPane.add(lblNewLabel);
 		
-		//TennisKnappen
 		JButton TennisBookBaneBTN = new JButton("Tennis");
 		TennisBookBaneBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Opening BaneBooking when Tennisbutton is pressed
 				BaneBooking booking = new BaneBooking();
-				//Opening BaneBooking window as sameplace as previous window
 				booking.setLocationRelativeTo(null);
-				//Displaying the window
 				booking.setVisible(true); 
 			
-				//Closeing old window when new is Opened
 				StartMenu.this.dispose(); 
 			}
 				
 		});
-		TennisBookBaneBTN.setBounds(166, 73, 84, 21);
+		TennisBookBaneBTN.setBounds(126, 71, 84, 21);
 		contentPane.add(TennisBookBaneBTN);
 		
 
@@ -72,22 +66,6 @@ public class StartMenu extends JFrame {
 		JLabel JLabelTextFelt = new JLabel("Book bane");
 		JLabelTextFelt.setBounds(185, 36, 65, 26);
 		contentPane.add(JLabelTextFelt);
-		
-		JButton TourneringBTN = new JButton("Tournament");
-		TourneringBTN.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					//Opening BaneBooking when Tennisbutton is pressed
-					Tournament tournament = new Tournament();
-					//Opening BaneBooking window as sameplace as previous window
-					tournament.setLocationRelativeTo(null);
-					//Displaying the window
-					tournament.setVisible(true); 
-				
-					StartMenu.this.dispose();
-			}
-		});
-		TourneringBTN.setBounds(155, 112, 113, 23);
-		contentPane.add(TourneringBTN);
 		
 
 		

@@ -16,8 +16,4 @@ public class BookingCell {
 	public Cellstatus getStatus() {
 		return status;
 	}
-	@Override
-	public String toString() {
-	    return text;
-	}
 }

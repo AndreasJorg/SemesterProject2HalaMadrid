@@ -5,60 +5,81 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Booking;
 
 public class BookingDB implements BookingDAO {
 	//Gemmer query i en Klasse variabler af typen String
-	private static final String FIND_ALL_BOOKINGS = "Select * From Bookings";
-	private static final String FIND_A_BOOKING = "Select * From bookings WHERE bane_id = ?";
-	private static final String UPDATE_BOOKING = "";
-	private static final String DELETE_BOOKING = ""; 
+	private static final String FIND_ALL_BOOKINGS = "Select * From bookings";
+	private static final String CREATE_BOOKING = "INSERT INTO bookings (id, baneId, startTid, slutTid, Pris, Status) VALUES (?,?,?,?,?,?)";
 	
 	//Laver PreparedStatement variabler og kalder dem således (PIL NED)
 	private PreparedStatement findAllBookingsPS;
-	private PreparedStatement findABookingPS;
-	private PreparedStatement updateABookingPS; 
-	private PreparedStatement deleteABookingPS;
+	private PreparedStatement createBookingPS;
 	
-	public BookingDB() {
+	public BookingDB() { 
 		initPreparedStatement();
-}
+} 
  
 	public void initPreparedStatement() {
-		Connection con = DBConnection.getInstance().getConnection();
-		try {
+		Connection con = DBConnection.getInstance().getConnection(); 
+		try { 
 			findAllBookingsPS = con.prepareStatement(FIND_ALL_BOOKINGS);
-			findABookingPS = con.prepareStatement(FIND_A_BOOKING);
-			updateABookingPS = con.prepareStatement(UPDATE_BOOKING);
-			deleteABookingPS = con.prepareStatement(DELETE_BOOKING);
+			createBookingPS = con.prepareStatement(CREATE_BOOKING);
 		} catch (SQLException e) {
 			e.printStackTrace(); 
 		}
 	}
 	
-		public Booking findByBaneId(int baneId)  throws DataAccessException {
-			Booking booking = null;
-			try {
-				
-			
-				findABookingPS.setInt(1, baneId);
-				ResultSet rs = findABookingPS.executeQuery();
-				if (rs.next()) {
-					booking = buildObject(rs);
-				}
-				return booking; 
-				
-			} catch (SQLException e) {
-				throw new DataAccessException (e, "Could not find Booking with input date");
-				
-			}
-		} 
 
-		private Booking buildObject(ResultSet rs) throws SQLException {
-			LocalDate date = rs.getDate("booking_date").toLocalDate();
-			int baneId = rs.getInt("bane_Id");
+		
+	private Booking buildObject(ResultSet rs) throws SQLException {
+	    int id = rs.getInt("Id");
+	    int baneId = rs.getInt("BaneId");
+
+	    String startTid = rs.getTime("StartTid").toLocalTime().toString().substring(0, 5);
+	    String slutTid = rs.getTime("SlutTid").toLocalTime().toString().substring(0, 5);
+	    
+	    String pris = rs.getString("Pris");
+	    String status = rs.getString("Status");
+	    
+
+	    return new Booking(id, baneId, startTid, slutTid, pris, status);
+
+		}
+	
+		public List<Booking> findAllBookings() throws DataAccessException {
+		    List<Booking> bookings = new ArrayList<>();
+ 
+		    try {
+		        ResultSet rs = findAllBookingsPS.executeQuery(); 
+
+		        while (rs.next()) { 
+		            bookings.add(buildObject(rs)); 
+		        }
+ 
+		        return bookings;
+
+		    } catch (SQLException e) {
+		        throw new DataAccessException(e, "Could not find all bookings");
+		    }
+		}
+		
+		public void createBooking(Booking booking) throws DataAccessException {
+			try {
+				createBookingPS.setInt(1, booking.getId());
+				createBookingPS.setInt(2, booking.getBaneId());
+				createBookingPS.setString(3, booking.getStartTid());
+				createBookingPS.setString(4, booking.getSlutTid());
+				createBookingPS.setString(5, booking.getPris());
+				createBookingPS.setString(6, booking.getStatus());
+				
+				createBookingPS.executeUpdate();
 			
-			return new Booking (date, baneId);
+		} catch (SQLException e) {
+			throw new DataAccessException(e, "Kunne ikke oprette en booking");
 		}
 	} 
+}

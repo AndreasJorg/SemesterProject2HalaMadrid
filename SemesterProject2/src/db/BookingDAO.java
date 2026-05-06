@@ -1,7 +1,13 @@
 package db;
 
+import java.util.List;
+
 import model.Booking;
 
 public interface BookingDAO {
-    Booking findByBaneId(int baneId) throws DataAccessException;
+
+
+	List<Booking> findAllBookings() throws DataAccessException;
+
+	void createBooking(Booking booking) throws DataAccessException;
 }

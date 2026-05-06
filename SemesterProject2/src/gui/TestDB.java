@@ -12,9 +12,7 @@ public class TestDB {
 	
      BookingCtr ctr = new BookingCtr();
 
-     Booking booking = ctr.findByBaneId(1);
 
-     System.out.println(booking); 
 }
 }
  

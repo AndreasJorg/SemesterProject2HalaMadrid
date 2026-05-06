@@ -1,35 +1,44 @@
 package model;
 
-import java.time.LocalDate;
-
 public class Booking {
-	private LocalDate date;
-	private int baneId;
 
-	public Booking(LocalDate date, int baneId) {
-	this.date = date;
-	this.baneId = baneId;
-	
-}
+    private int id;
+    private int baneId;
+    private String startTid;
+    private String slutTid;
+    private String pris;
+    private String status;
 
-	public LocalDate getDate() { 
-		return date;
-	}
+    public Booking(int id, int baneId, String startTid, String slutTid, String pris, String status) {
+        this.id = id;
+        this.baneId = baneId;
+        this.startTid = startTid;
+        this.slutTid = slutTid;
+        this.pris = pris;
+        this.status = status;
+    }
 
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public int getBaneId() {
-		return baneId;
-	}
+    public int getBaneId() {
+        return baneId;
+    }
 
-	public void setBaneId(int baneId) {
-		this.baneId = baneId;
-	}
-	
-	@Override
-	public String toString() {
-	    return "Booking [date=" + date + ", baneId=" + baneId + "]";
-	}
+    public String getStartTid() {
+        return startTid;
+    }
+
+    public String getSlutTid() {
+        return slutTid;
+    }
+
+    public String getPris() {
+        return pris;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

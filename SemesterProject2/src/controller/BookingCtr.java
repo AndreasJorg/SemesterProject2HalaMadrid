@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import db.BookingDAO;
 import db.BookingDB;
 import db.DataAccessException;
@@ -12,8 +14,13 @@ public class BookingCtr {
     public BookingCtr() {
         bookingDAO = new BookingDB();
     }
-
-    public Booking findByBaneId(int baneId) throws DataAccessException {
-        return bookingDAO.findByBaneId(baneId);
+    
+    public void createBooking(Booking booking) throws DataAccessException {
+    	bookingDAO.createBooking(booking);
+    	
+    }
+    
+    public List<Booking> findAllBookings() throws DataAccessException {
+    	return bookingDAO.findAllBookings();
     }
 } 

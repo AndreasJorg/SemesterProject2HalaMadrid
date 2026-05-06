@@ -61,69 +61,11 @@ public class BaneBooking extends JFrame {
         BookingTableJTable.setModel(new BookingTableModel());
         
         BookingTableJTable.setRowHeight(40);
-        refreshTable();
         
         BookingCellRenderer renderer = new BookingCellRenderer();
         for (int i = 1; i < BookingTableJTable.getColumnCount(); i++) {
         	BookingTableJTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        	
         }
-        
-        BookingTableJTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                int row = BookingTableJTable.getSelectedRow();
-                int col = BookingTableJTable.getSelectedColumn();
-
-                if (col == 0) return;
-
-                Object value = BookingTableJTable.getValueAt(row, col);
-
-                if (value == null) {
-                    String tid = BookingTableJTable.getValueAt(row, 0).toString();
-                    String[] tider = tid.split(" : ");
-
-                    String startTid = tider[0];
-                    String slutTid = tider[1];
-
-                    int baneId = col;
-                    String pris = "Dkk 70";
-
-                    int svar = javax.swing.JOptionPane.showConfirmDialog(
-                            BaneBooking.this,
-                            "Vil du booke bane " + baneId +
-                            "\nTid: " + startTid + " - " + slutTid +
-                            "\nPris: " + pris,
-                            "Opret booking",
-                            javax.swing.JOptionPane.YES_NO_OPTION
-                    );
-
-                    if (svar == javax.swing.JOptionPane.YES_OPTION) {
-                        try {
-                            controller.BookingCtr bookingCtr = new controller.BookingCtr();
-
-                            model.Booking booking = new model.Booking(
-                            		//Opretter booking med id 5
-                                    2,
-                                    baneId,
-                                    startTid,
-                                    slutTid,
-                                    pris,
-                                    "OPTAGET"
-                            );
-
-                            bookingCtr.createBooking(booking);
-
-                            refreshTable();
-
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-        
         BookingTableJTable.setBounds(50, 50, 1100, 800);
         contentPane.add(BookingTableJTable);
         
@@ -137,16 +79,7 @@ public class BaneBooking extends JFrame {
         
     } 
 
-    private void refreshTable() {
-    	    BookingTableJTable.setModel(new BookingTableModel());
-
-    	    BookingCellRenderer renderer = new BookingCellRenderer();
-    	    for (int i = 1; i < BookingTableJTable.getColumnCount(); i++) {
-    	        BookingTableJTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
-    	    }
-    	}
-	
-	public LocalDate getValue() {
+    public LocalDate getValue() {
         Date selectedDate = (Date) dp.getModel().getValue();
         if (selectedDate != null) {
             return selectedDate.toInstant()

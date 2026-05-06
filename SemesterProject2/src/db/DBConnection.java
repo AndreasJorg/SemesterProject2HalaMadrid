@@ -26,7 +26,7 @@ public class DBConnection {
 			Class.forName(driverClass);
 			connection = DriverManager.getConnection(connectionString);
 			if (connection != null) { 
-				System.out.println("Store patter");
+				System.out.println("Connected to database");
 			}
 		} catch (ClassNotFoundException e) {
 			System.err.println("Could not load JDBC driver");
